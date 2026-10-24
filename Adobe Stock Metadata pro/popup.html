@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoMeta for Adobe Stock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-content">
+          <div class="logo-section">
+            <img src="icons/icon48.png" alt="Icon" class="icon" />
+            <div class="title-section">
+              <h1>AutoMeta <span class="brand-suffix">for Adobe Stock</span></h1>
+              <div class="tagline">FAST • ACCURATE • MULTI-KEY</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="tabs-navigation">
+        <button class="tab-link active" data-tab="home">Home</button>
+        <button class="tab-link" data-tab="metadata">Metadata</button>
+        <button class="tab-link" data-tab="settings">API Keys</button>
+        <button class="tab-link" data-tab="activation">Activation</button>
+        <button class="tab-link" data-tab="admin" style="opacity:.7;">Admin Login</button>
+      </div>
+
+      <main class="main-content">
+        <div id="home" class="tab-content active">
+          <section class="section-card">
+            <h2 class="section-title">How it works</h2>
+            <ol class="how-it-works">
+              <li>সর্বপ্রথম  আপনার যেকোনো <strong>API Keys</strong> এড করুন: Gimini,ChatGpt অথবা Claude</li>
+              <li>Go to your Adobe Stock <strong>contributor.stock.adobe.com</strong> upload page.</li>
+              <li>Click the <strong>AI</strong> badge on any thumbnail (photo, vector, EPS/AI, SVG, or video), or the <strong>Get All Metadata</strong> button to process every file.</li>
+            </ol>
+          </section>
+
+          <section class="section-card">
+            <h2 class="section-title">Tip: Raise your limit</h2>
+            <li class="section-description">
+              যত বেশি  Api Key  অ্যাড করবেন তত বেশি  ব্যবহার করতে পারবেন।সহজে লিমিট শেষ হবে না ,অথবা যদি আপনার  সাবস্ক্রিপশন নেওয়া থাকে  google এর কাছ থেকে তাহলে  অনেক Api এড করা দরকার নেই-
+              <li>
+              The more Api Keys you add, the more you can use. The limit will not end easily, or if you have a subscription from Google, then there is no need to add many Apis.</li>
+              </li>
+          </section>
+        </div>
+
+        <div id="metadata" class="tab-content">
+          <section class="section-card">
+            <h2 class="section-title">Metadata Rules</h2>
+
+            <div class="control-group">
+              <label class="control-label">Title সীমা কত চান ?</label>
+              <div class="dual-slider-group">
+                <div class="slider-row">
+                  <span class="small-label">Min: <span id="titleMinValue">40</span></span>
+                  <input type="range" id="titleMinSlider" min="20" max="150" value="40" step="1">
+                </div>
+                <div class="slider-row">
+                  <span class="small-label">Max: <span id="titleMaxValue">150</span></span>
+                  <input type="range" id="titleMaxSlider" min="30" max="200" value="150" step="1">
+                </div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Keywords Count</label>
+              <div class="dual-slider-group">
+                <div class="slider-row">
+                  <span class="small-label">Min: <span id="keywordsMinValue">15</span></span>
+                  <input type="range" id="keywordsMinSlider" min="7" max="50" value="15" step="1">
+                </div>
+                <div class="slider-row">
+                  <span class="small-label">Max: <span id="keywordsMaxValue">45</span></span>
+                  <input type="range" id="keywordsMaxSlider" min="7" max="50" value="45" step="1">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-card">
+            <h2 class="section-title">Get All Metadata Behaviour</h2>
+            <p class="section-description">
+              ""Get All Metadata" চালানোর সময় যেসব ফাইলের Title, Keywords, Category এবং Recognizable-people প্রশ্ন - সবগুলোই আগে থেকে পূরণ করা আছে, সেগুলো কী করা হবে তা এখানে ঠিক করুন।--Here you can specify what to do with files that have pre-filled Title, Keywords, Category, and Recognizable-people queries when running "Get All Metadata".
+            </p>
+            <div class="control-group">
+              <label class="control-label">যেসব ফাইলে আগে থেকে সব metadata পূরণ করা আছে, সেগুলো স্কিপ করবে?--Will it skip files that already have all METADATA filled in?</label>
+              <select id="skipAlreadyReadySelect" class="text-input" style="padding: 10px; cursor: pointer; appearance: auto;">
+                <option value="yes">হ্যাঁ - স্কিপ করবে -yes skip</option>
+                <option value="no">না - স্কিপ করবে না -No Don't Skip</option>
+              </select>
+            </div>
+          </section>
+
+          <section class="section-card">
+            <h2 class="section-title">Upload Questions</h2>
+            <p class="section-description">
+              আপনার ফাইল টা কি ধরনের ???---What type of file is yours?
+            </p>
+
+            <div class="control-group" style="margin-bottom: 15px;">
+              <label class="control-label">Created using generative AI tools?</label>
+              <select id="aiGeneratedSelect" class="text-input" style="padding: 10px; cursor: pointer; appearance: auto;">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+
+            <div class="control-group" style="margin-bottom: 15px;">
+              <label class="control-label">This is Illustrative Editorial content?</label>
+              <select id="illustrativeEditorialSelect" class="text-input" style="padding: 10px; cursor: pointer; appearance: auto;">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Recognizable people or property?</label>
+              <select id="recognizablePeopleSelect" class="text-input" style="padding: 10px; cursor: pointer; appearance: auto;">
+                <option value="auto">Auto-detect with AI (recommended)</option>
+                <option value="always_no">Always answer "No"</option>
+                <option value="always_yes">Always answer "Yes"</option>
+              </select>
+            </div>
+          </section>
+        </div>
+
+        <div id="settings" class="tab-content">
+          <section class="section-card">
+            <div class="section-header-with-link">
+              <h2 class="section-title">API Keys</h2>
+              <a href="#" id="getKeyLink" target="_blank" class="button-link">Get API Key</a>
+            </div>
+            <div class="control-group" style="margin-bottom: 15px;">
+              <label class="control-label">Provider</label>
+              <select id="providerSelect" class="text-input" style="padding: 10px; cursor: pointer; appearance: auto;">
+                <option value="gemini">Google Gemini</option>
+                <option value="openai">OpenAI (ChatGPT)</option>
+                <option value="claude">Anthropic (Claude)</option>
+              </select>
+            </div>
+            <div id="messageDisplay" class="message-display"></div>
+            <div class="input-with-button">
+              <input type="password" id="apiKeyInput" placeholder="Enter API key" class="text-input" />
+              <button id="addKeyButton" class="primary-button">Add Key</button>
+            </div>
+            <div class="keys-header">
+              <h3 class="subsection-title">Saved Keys</h3>
+              <button id="testKeysButton" class="secondary-button">⚡ Test All Keys</button>
+            </div>
+            <div id="apiKeyList" class="api-key-list"></div>
+          </section>
+        </div>
+
+        <div id="activation" class="tab-content">
+          <section class="section-card">
+            <h2 class="section-title">License Status</h2>
+            <div id="licenseStatusBox" style="padding:14px;border-radius:8px;background:#f1f5f9;margin-bottom:14px;font-size:13px;color:#334155;">
+              Checking...
+            </div>
+
+            <div class="control-group" style="margin-bottom:14px;">
+              <label class="control-label">Your Extension ID <pre><span style="font-size:14px;color:white;">(এক্সটেনশন id  মারুফ হোসেন কে পাঠান)</span></label></pre> 
+              <div class="input-with-button">
+                <input type="text" id="deviceIdBox" class="text-input" readonly style="font-family:monospace;font-size:12px;" />
+                <button id="copyDeviceIdButton" class="secondary-button">Copy</button>
+              </div>
+            </div>
+
+            <div class="control-group" style="margin-bottom:14px;">
+              <label class="control-label">Activation Key</label>
+              <div class="input-with-button">
+                <input type="text" id="activationKeyInput" class="text-input" placeholder="Paste your activation key here" />
+                <button id="activateButton" class="primary-button">Activate</button>
+              </div>
+              <div id="activationMessage" class="message-display"></div>
+            </div>
+          </section>
+
+          <section class="section-card">
+            <h2 class="section-title">কত দিনের জন্য নিতে চান</h2>
+            <p class="section-description" style="color: rgb(255, 255, 0);font-size: 17px;text-align: center;text-decoration: underline;">
+              আপনার আয় বুঝে ব্যয় করুন </p> 
+<li style="color:rgb(0, 255, 0) ;">এক সপ্তাহের জন্য : ৫০ টাকা-For one week: $0.41 </li> 
+              <li>এক মাসের জন্য : ৩০০ টাকা(For one month:$2.44) </li> 
+    <li style="color:rgb(0, 255, 0) ;">এক বছরের জন্য : 2000 টাকা (For one year: $16.28)</li>
+  <li style="color:yellow";>লাইফ টাইম এর জন্য: ৭ হাজার টাকা -Lifetime: $56.97</li
+          </section>
+              
+            
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
+              <a href="#" id="whatsappBuyLink" target="_blank" class="primary-button" style="text-align:center;text-decoration:none;background:#008000;display:block;padding:12px;">
+                💬 WhatsApp: 01734609935
+              </a>
+              <a href="#" id="telegramBuyLink" target="_blank" class="primary-button" style="text-align:center;text-decoration:none;background:#1486da;display:block;padding:12px;">
+                ✈️ Telegram: @MarufHossen2
+              </a>
+            </div>
+          </section>
+        </div>
+        <div id="admin" class="tab-content">
+          <section class="section-card" id="adminGateSection">
+            <h2 class="section-title">🔒 Admin Login</h2>
+            <p class="section-description" style="color: white;text-align: center;">
+              হজরত আবু হুরায়রা (রা.) থেকে বর্ণিত, রাসুলুল্লাহ (সা.) বলেছেন, "ব্যভিচারী যখন ব্যভিচার করে তখন সে মুমিন থাকে না, <span style="color: rgb(0, 255, 0);font-size: 18px;">চোর যখন চুরি করে তখন সে মুমিন থাকে না </span>এবং মদ্যপ যখন মদ পান করে তখন সে মুমিন থাকে না।" [সহিহ বুখারি, হাদিস: ৫৫৭৮]
+            </p>
+            <div class="control-group" style="margin-bottom:14px;align-items: center;text-align: center;">
+              <label class="control-label">Admin Password</label>
+              <input type="password" id="adminPasswordInput" class="text-input" placeholder="Enter admin password" />
+            </div>
+            <button id="adminUnlockButton" class="primary-button" style="width:100%;">Unlock</button>
+            <div id="adminGateMessage" class="message-display"></div>
+          </section>
+
+          <section class="section-card" id="adminToolSection" style="display:none;">
+            <h2 class="section-title">🔑 Generate Activation Key</h2>
+            <p class="section-description">
+              কাস্টমারের Device ID (Activation ট্যাব থেকে সে যেটা পাঠিয়েছে) নিচে বসান।
+            </p>
+            <div class="control-group" style="margin-bottom:14px;">
+              <label class="control-label">Customer's Device ID</label>
+              <input type="text" id="adminDeviceIdInput" class="text-input" placeholder="SS-XXXXXXXX-..." />
+            </div>
+            <div class="control-group" style="margin-bottom:14px;">
+              <label class="control-label">Validity</label>
+              <select id="adminValiditySelect" class="text-input" style="padding:10px;cursor:pointer;appearance:auto;">
+                <option value="lifetime">Lifetime</option>
+                <option value="365">1 Year</option>
+                <option value="30">30 Days</option>
+                <option value="7">7 Days</option>
+              </select>
+            </div>
+            <button id="adminGenerateButton" class="primary-button" style="width:100%;">Generate Activation Key</button>
+            <div id="adminKeyOutput" style="display:none;margin-top:14px;padding:14px;background:#f1f5f9;border:1px dashed #cbd5e1;border-radius:8px;font-family:monospace;font-size:12px;word-break:break-all;color:#166534;"></div>
+            <button id="adminCopyKeyButton" class="secondary-button" style="width:100%;margin-top:8px;display:none;">📋 Copy Key</button>
+          </section>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p class="copyright">&copy; 2026 AutoMeta for Adobe Stock-Maruf Hossen ( Faltu Pc )</p>
+      </footer>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
